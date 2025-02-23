@@ -1,6 +1,18 @@
 .app-header {
   background-color: #282c34;
   color: white;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   padding-right: 15px;
+}
+
+.logo {
+  font-size: 1.5em;
+ 
+  /* padding: 10px 0; */
+  height: 60px;
+  width: 250px;
+}
+
+.navbar {
+    --bs-navbar-padding-y: 0.0rem;
 }

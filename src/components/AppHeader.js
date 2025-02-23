@@ -5,6 +5,7 @@ import { useAuthenticator } from "@aws-amplify/ui-react";
 import { FaUserCircle } from "react-icons/fa";
 import { setUser, setRole } from '../reducers/userReducer'
 import { useDispatch, useSelector } from 'react-redux'
+import logo from "../assets/logo.webp";
 import "./AppHeader.css";
 
 const AppHeader = () => {
@@ -18,10 +19,16 @@ const AppHeader = () => {
     signOut();
   }
   return (
-    <Navbar className="app-header"  bg="dark" variant="dark" expand="lg">
+    <Navbar className="app-header"  bg="dark" variant="dark" >
       {/* <Container> */}
         {/* Brand Logo */}
-        <Navbar.Brand as={Link} to="/">BetterWellness</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+        <img 
+          src={logo} 
+          alt="BetterWellness Logo" 
+          className="logo"
+        />
+        </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">

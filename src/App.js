@@ -87,11 +87,11 @@ function App() {
         <Router>
         <Sidebar/>
         <AppHeader />
-        <div style={{ display: "flex" }}>
+        {/* <div style={{ display: "flex" }}> */}
            <div style={{ marginLeft: "250px", padding: "20px" }}>
            <AppRoutes />
            </div>
-         </div>
+         {/* </div> */}
       
      </Router>
       )}
