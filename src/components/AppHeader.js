@@ -3,11 +3,20 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Button, Dropdown, NavDropdown } from "react-bootstrap";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { FaUserCircle } from "react-icons/fa";
+import { setUser, setRole } from '../reducers/userReducer'
+import { useDispatch, useSelector } from 'react-redux'
 import "./AppHeader.css";
 
 const AppHeader = () => {
+    const dispatch = useDispatch()
   const { signOut, user } = useAuthenticator(); // Get user and signOut function
 
+  const signOutCall = () => {
+    console.log("Signing out...");
+    dispatch(setRole(null));
+    dispatch(setUser({}));
+    signOut();
+  }
   return (
     <Navbar className="app-header"  bg="dark" variant="dark" expand="lg">
       {/* <Container> */}
@@ -31,7 +40,7 @@ const AppHeader = () => {
               >
                 <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={signOut}>Sign Out</NavDropdown.Item>
+                <NavDropdown.Item onClick={signOutCall}>Sign Out</NavDropdown.Item>
               </NavDropdown>
             ) : (
               <Nav.Link as={Link} to="/login">Login</Nav.Link>

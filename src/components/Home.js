@@ -42,7 +42,7 @@ const Home = () => {
 
     fetchUser();
     fetchRole();
-  }, [navigate]);
+  }, []);
 
   return (
      

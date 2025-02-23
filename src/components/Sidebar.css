@@ -6,7 +6,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    padding: 20px;
+    padding-top:30px ;
+    /* padding: 20px; */
+
   }
   
   .sidebar h2 {
@@ -20,17 +22,25 @@
   }
   
   .sidebar li {
-    margin: 15px 0;
+    /* margin: 15px 0; */
   }
   
   .sidebar a {
     color: white;
     text-decoration: none;
     display: block;
+    padding-top: 5px;
+    padding-left: 20px;
+    /* margin-top: 15px; */
+    /* margin-bottom: 15px; */
+    height: 40px;
   }
   
   .sidebar a:hover {
     background-color: #34495e;
-    padding: 5px;
+  }
+
+  .sidebar a:active {
+    background-color: #4d5053;
   }
   

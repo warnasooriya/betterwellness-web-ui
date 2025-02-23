@@ -30,7 +30,14 @@ function App() {
             <>
               <Authenticator.SignUp.FormFields />
 
-              {/* Custom fields for given_name and family_name */}
+               {/* select role */}
+
+              <div><label>Role</label></div>
+              <select name="custom:role">
+                <option value="Customer">Customer</option>
+                <option value="Counsellor">Counsellor</option>
+              </select>
+
               <div><label>First name</label></div>
               <input
                 type="text"
