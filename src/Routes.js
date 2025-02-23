@@ -4,22 +4,14 @@ import CustomerDashboard from "./components/CustomerDashboard";
 import CounsellorDashboard from "./components/CounsellorDashboard";
 import Home from "./components/Home";
 import ProtectedRoute from "./auth/ProtectedRoute";
+import Booking from "./components/Booking";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
 
-      {/* Protected Routes Based on Roles */}
-      <Route
-        path="/customer-dashboard"
-        element={<ProtectedRoute component={CustomerDashboard} allowedRoles={["Customer"]} />}
-      />
-      <Route
-        path="/counsellor-dashboard"
-        element={<ProtectedRoute component={CounsellorDashboard} allowedRoles={["Counsellor"]} />}
-      />
-
+      <Route path="/booking" element={<Booking/>} />
       <Route path="*" element={<h2>404 - Not Found</h2>} />
     </Routes>
   );

@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css"; // ✅ Add CSS for styling
 import {  useSelector } from 'react-redux'
-import { useAuthenticator } from "@aws-amplify/ui-react"; 
 const Sidebar = () => {
     // const { signOut } = useAuthenticator();
     const role = useSelector((state) => state.userReducer.role) // ✅ Get user role from Redux store
@@ -19,10 +18,10 @@ const Sidebar = () => {
         {role === "Customer" && (
           <>
             <li>
-              <Link to="/customer-dashboard">Customer Dashboard</Link>
+              <Link to="/booking">Booking</Link>
             </li>
             <li>
-              <Link to="/customer-settings">Customer Settings</Link>
+              <Link to="/booking-inquiries">Booking Inquiries</Link>
             </li>
           </>
         )}
@@ -31,10 +30,10 @@ const Sidebar = () => {
         {role === "Counsellor" && (
           <>
             <li>
-              <Link to="/counsellor-dashboard">Counsellor Dashboard</Link>
+              <Link to="/counsellor-dashboard">Availability Setup</Link>
             </li>
             <li>
-              <Link to="/counsellor-reports">Reports</Link>
+              <Link to="/counsellor-reports">Booking Calender</Link>
             </li>
           </>
         )}
