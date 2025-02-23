@@ -30,10 +30,10 @@ const Sidebar = () => {
         {role === "Counsellor" && (
           <>
             <li>
-              <Link to="/counsellor-dashboard">Availability Setup</Link>
+              <Link to="/setup-awailability">Availability Setup</Link>
             </li>
             <li>
-              <Link to="/counsellor-reports">Booking Calender</Link>
+              <Link to="/booking-calender">Booking Calender</Link>
             </li>
           </>
         )}
