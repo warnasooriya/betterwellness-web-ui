@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css"; // ✅ Add CSS for styling
 import {  useSelector } from 'react-redux'
-import { useAuthenticator } from "@aws-amplify/ui-react"; 
+// import { useAuthenticator } from "@aws-amplify/ui-react"; 
 const Sidebar = () => {
     // const { signOut } = useAuthenticator();
     const role = useSelector((state) => state.userReducer.role) // ✅ Get user role from Redux store

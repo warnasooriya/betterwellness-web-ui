@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomerDashboard = () => {
+const Dashboard = () => {
   return (
     <div>
       <h2>Customer Dashboard</h2>
@@ -9,4 +9,4 @@ const CustomerDashboard = () => {
   );
 };
 
-export default CustomerDashboard;
+export default Dashboard;
