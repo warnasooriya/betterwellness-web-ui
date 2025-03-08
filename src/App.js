@@ -1,17 +1,18 @@
 import React ,{ useState, useEffect }from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import {Amplify} from 'aws-amplify';
+import {Amplify } from 'aws-amplify';
 import {awsExports} from "./aws-exports";
 import AppRoutes from "./Routes";
 import { Authenticator } from "@aws-amplify/ui-react";
-import { fetchUserAttributes } from "@aws-amplify/auth";
+
 import { Provider } from "react-redux"; 
 import '@aws-amplify/ui-react/styles.css';
 import {Store} from "./store";
 import Sidebar from "./components/SideBar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Navbar, Nav, Container, Button } from "bootstrap";
 import AppHeader from "./components/AppHeader";
+
+ 
 Amplify.configure({
   ...awsExports,
 });

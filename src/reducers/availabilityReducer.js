@@ -3,17 +3,21 @@ import { createSlice } from '@reduxjs/toolkit'
 const availabilityReducer = createSlice({
     name: 'availabilityReducer',
     initialState: {
-        events:[],
+        availability:[],
     },
     reducers: {
-        setEvent(state, action) {
-            state.events.push(action.payload);
+        setAvailability(state, action) {
+            state.availability.push(action.payload);
+        },
+        setAllAvailabilities(state, action) {
+            state.availability = action.payload;
         },
          
     },
+
 })
 
-export const { setEvent } = availabilityReducer.actions
+export const { setAvailability,setAllAvailabilities} = availabilityReducer.actions
 
 
 export default availabilityReducer.reducer
