@@ -1,0 +1,17 @@
+.form-check-input{
+    height: 40px !important;
+    width: 40px !important;
+    margin-top: 0px !important;
+    border : 5px solid #92e6c3 !important;
+    /* border-radius: 5px; */
+    background-color: #48cc95 !important;
+}
+
+ 
+
+.form-icon{
+    font-size: 22px;
+    color: #346ff0;
+    /* margin-top: 5px; */
+
+}

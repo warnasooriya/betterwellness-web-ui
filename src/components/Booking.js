@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import CounsellorList from "./CounsellorList";
  
 
 const Booking = () => {
   
   return (
     <div>
-      <h1>Booking</h1>
+      
+      <CounsellorList />
     </div>
   )
 

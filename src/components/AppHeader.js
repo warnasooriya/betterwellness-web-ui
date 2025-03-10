@@ -10,8 +10,10 @@ import  useAxiosPrivate from "../hooks/useAxiosPrivate";
 import logo from "../assets/logo.webp";
 import "./AppHeader.css";
 import config from "../api/config";
+import LoadingOverlay from "./LoadingOverlay";
 
 const AppHeader = () => {
+  const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch()
   const axios = useAxiosPrivate();
   const { signOut, user } = useAuthenticator(); // Get user and signOut function
@@ -27,20 +29,26 @@ const AppHeader = () => {
     
     const syncUser = async (user) => {
       try {
+        setLoading(true);
         const attributes = await fetchUserAttributes();
         const role = attributes["custom:role"];
+        const specialization = attributes["custom:specialization"];
+        const description = attributes["custom:description"];
         console.log("User role:", role);
         const userName = user?.tokens?.signInDetails?.loginId;
         const apiUrl = new URL("api/user", config.userServiceBaseUrl).href;
-        const response = await axios.post(apiUrl, { role , attributes,userName });
+        const response = await axios.post(apiUrl, { role , attributes,userName , specialization , description });
         console.log("User sync response:", response);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.error("Error fetching user attributes:", error);
       }
     };
   
     const fetchUserTokens = async () => {
       try {
+       
         const user = await fetchAuthSession();
         const accessToken = user.tokens.accessToken.toString();
         const idToken = user.tokens.idToken.toString();
@@ -51,6 +59,7 @@ const AppHeader = () => {
         localStorage.setItem('userId', user?.userSub);
         console.log("User tokens retrieved:", { accessToken,  idToken });
         syncUser(user);
+       
       } catch (error) {
         console.error("Error fetching user tokens:");
       }
@@ -62,7 +71,9 @@ const AppHeader = () => {
     }, []);
 
   return (
+  
     <Navbar className="app-header"  bg="dark" variant="dark" >
+        <LoadingOverlay isLoading={loading} />
       {/* <Container> */}
         {/* Brand Logo */}
         <Navbar.Brand as={Link} to="/">

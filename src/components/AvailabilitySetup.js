@@ -4,9 +4,12 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CModal, CModalHeader, CModalBody, CModalFooter, CButton } from "@coreui/react"; // Corrected imports
 import { useDispatch, useSelector } from 'react-redux'
+import './Availability.css'
 import { setAvailability, setAllAvailabilities } from '../reducers/availabilityReducer'
 import  useAxiosPrivate from "../hooks/useAxiosPrivate";
 import config from "../api/config";
+import LoadingOverlay from "./LoadingOverlay";
+ 
 
 const localizer = momentLocalizer(moment);
 
@@ -103,7 +106,16 @@ export default function AvailabilitySetup() {
     try {
       const response = await axios.get(`${config.counsellorServiceBaseUrl}/api/availabilityByUser/${localStorage.getItem('userId')}`);
       console.log("Events fetched:", response.data);
-      setAllEvents(response.data);
+      const eventLists = await response.data.map(event => ({
+        title: event.booked===true ? event.bookedBy.family_name + " " + event.bookedBy.given_name : event.title,
+        start:  event.start, // Ensure start is a Date object
+        end: event.end,     // Ensure end is a Date object
+        booked: event.booked,
+        id: event.id,
+        bookedBy: event.bookedBy
+      }));
+ 
+      setAllEvents(eventLists);
     } catch (error) {
       setAllEvents([]);
       console.error("Error fetching events:", error);
@@ -122,7 +134,7 @@ export default function AvailabilitySetup() {
   return (
     <div>
       <h2>📅 Availability Scheduler</h2>
-
+      <LoadingOverlay isLoading={loading} />
       {/* Calendar Component */}
       <Calendar
         localizer={localizer}
@@ -148,7 +160,7 @@ export default function AvailabilitySetup() {
         onNavigate={(date) => handleNavigate(date)} // Handle date navigation
         eventPropGetter={(event) => (
           {
-          className: "custom-event-class",
+          className: event?.booked ? "custom-booked-class" : "custom-event-class",
           style: {
             backgroundColor: "#3788d8",
             color: "white",
