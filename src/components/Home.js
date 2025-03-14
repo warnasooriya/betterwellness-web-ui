@@ -5,6 +5,8 @@ import { fetchUserAttributes ,getCurrentUser } from "@aws-amplify/auth";
 import Sidebar from "./SideBar"; // ✅ Import Sidebar
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser, setRole } from '../reducers/userReducer'
+import CounsellorList from "./CounsellorList";
+import AvailabilitySetup from "./AvailabilitySetup";
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -45,15 +47,9 @@ const Home = () => {
   }, []);
 
   return (
-     
-    
-       <div>
-  <h2>Welcome, {cuser?.username}</h2>
-  <p>Role: {userRole || "Fetching..."}</p>
-       </div>
-          
-        
-      
+      <>
+      {userRole==="Customer" ?  <CounsellorList /> : <AvailabilitySetup />}
+      </>
     
   );
 };

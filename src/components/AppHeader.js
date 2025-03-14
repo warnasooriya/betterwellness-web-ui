@@ -1,10 +1,10 @@
 import React ,{useEffect} from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container, Button, Dropdown, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav,  NavDropdown } from "react-bootstrap";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import { FaUserCircle } from "react-icons/fa";
 import { setUser, setRole } from '../reducers/userReducer'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchUserAttributes ,fetchAuthSession , } from "@aws-amplify/auth";
 import  useAxiosPrivate from "../hooks/useAxiosPrivate";
 import logo from "../assets/logo.webp";
@@ -17,6 +17,7 @@ const AppHeader = () => {
   const dispatch = useDispatch()
   const axios = useAxiosPrivate();
   const { signOut, user } = useAuthenticator(); // Get user and signOut function
+  const [currntUser, setCurrentUser] = React.useState({});
 
   const signOutCall = () => {
     console.log("Signing out...");
@@ -34,10 +35,23 @@ const AppHeader = () => {
         const role = attributes["custom:role"];
         const specialization = attributes["custom:specialization"];
         const description = attributes["custom:description"];
+        const localUser = {
+          role,
+          specialization,
+          description,
+          ...attributes,
+        }
+        setCurrentUser(localUser);
         console.log("User role:", role);
         const userName = user?.tokens?.signInDetails?.loginId;
         const apiUrl = new URL("api/user", config.userServiceBaseUrl).href;
-        const response = await axios.post(apiUrl, { role , attributes,userName , specialization , description });
+        const response = await axios.post(apiUrl, { role , attributes,userName , specialization , description }
+          ,{
+            headers: {
+              Authorization: `Bearer ${user.tokens.accessToken}`,
+            }
+          }
+        );
         console.log("User sync response:", response);
         setLoading(false);
       } catch (error) {
@@ -88,7 +102,7 @@ const AppHeader = () => {
         <Navbar.Collapse id="navbar-nav">
           {/* Left-side navigation links */}
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
+            <Nav.Link  >{currntUser.given_name} {currntUser.family_name} : {currntUser.role } </Nav.Link>
           </Nav>
 
           {/* Right-side Profile & Auth controls */}

@@ -15,6 +15,7 @@ import config from "./api/config";
 import AppHeader from "./components/AppHeader";
 import   './sign-up-custom.css';
 import { CFormTextarea } from "@coreui/react";
+import { SocketProvider } from "./components/SocketContext";
 
 
 Amplify.configure({
@@ -145,6 +146,7 @@ function App() {
     >
       {({ signOut, user}) => (
         <Router>
+          <SocketProvider>
         <Sidebar/>
         <AppHeader />
         {/* <div style={{ display: "flex" }}> */}
@@ -152,7 +154,7 @@ function App() {
            <AppRoutes />
            </div>
          {/* </div> */}
-      
+         </SocketProvider>
      </Router>
       )}
     </Authenticator>

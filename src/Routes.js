@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Booking from "./components/Booking";
 import BookingInquiries from "./components/BookingInquiries";
+import Messages from "./components/Messages";
  
 
 
@@ -32,6 +33,11 @@ const AppRoutes = () => {
               <Route path="/booking-calender" name="Availability Setup" element={<Calendar />} />
             </Route>
 
+            <Route element={<ProtectedRoute component={Messages} allowedRoles={['Counsellor','Customer']} />}>
+              <Route path="/messages" name="Messages" element={<Messages />} />
+            </Route>
+
+        
     
       <Route path="*" element={<h2>404 - Not Found</h2>} />
     </Routes>

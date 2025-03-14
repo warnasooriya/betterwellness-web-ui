@@ -44,3 +44,12 @@
     background-color: #4d5053;
   }
   
+  .message-count{
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin-left: 35px;
+    text-align: right;
+    align-items: right;
+  }

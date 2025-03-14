@@ -27,25 +27,44 @@ export default function CounsellorList() {
     const [loading, setLoading] = useState(false);
   const axios = useAxiosPrivate();
   const [counsellors, setCounsellors] = useState([]);
-  const [search, setSearch] = useState("");
+ 
   const [filteredCounsellors, setFilteredCounsellors] = useState([]);
   const [specialization, setSpecialization] = useState([]);
   const [specializations, setSpecializations] = useState([]);
 
+  const [searchText, setSearchText] = useState({
+    specialization: "",
+    name: "",
+});
+
     const dispatch = useDispatch()
     const specializationReducer = useSelector(state => state.specializationReducer.specializations)
+
+ 
+    const updateSearchField = (field, value) => {
+      debugger
+      setSearchText((prevState) => ({
+          ...prevState,
+          [field]: value
+      }));
+  };
 
   // Fetch counsellor data
 
   const fetchCounsellors = async () => {
     try {
       setLoading(true);
+      const sText = JSON.stringify(searchText);
       console.log("Fetching counsellors...");
       const apiUrl = new URL(
-        `api/booking/list?search=${search}`,
+        `api/booking/list`,
         config.bookingServiceBaseUrl
       ).href;
-      const response = await axios.get(apiUrl); // API call
+      const response = await axios.get(apiUrl,{
+        headers: {
+          'searchText':sText,
+        }
+      }); // API call
       setCounsellors(response.data);
       setFilteredCounsellors(response.data);
         setLoading(false);
@@ -86,13 +105,8 @@ export default function CounsellorList() {
 
   // Handle search and filter
   useEffect(() => {
-    const filtered = counsellors.filter(
-      (c) =>
-        c.specialization.toLowerCase().includes(search.toLowerCase()) ||
-        c.name.toLowerCase().includes(search.toLowerCase())
-    );
-    setFilteredCounsellors(filtered);
-  }, [search, counsellors]);
+    
+  }, []);
 
 
     // Handle filter by specialization
@@ -156,30 +170,27 @@ export default function CounsellorList() {
       <CCardBody>
         {/* Search */}
         <CRow>
-          <CCol md={2}>
-            <label className="form-label">Date:</label>
-            <CFormInput type="date" placeholder="Search by date..."    onChange={setDate} />
-          </CCol>
+       
 
           <CCol md={4}>
             <CFormLabel htmlFor="Specialization">Specialization</CFormLabel>
             <Select
               name="Specialization"
               options={specializations}
-              onChange={setSpecialization}
-              value={specialization}
+              onChange={(e) => updateSearchField('specialization',e)}
+              value={searchText.specialization}
             />
           </CCol>
 
-          <CCol md={5}>
+          <CCol md={7}>
           <CFormLabel htmlFor="Search">Search : </CFormLabel>
             <CFormInput
               type="text"
               name="Search"
-              placeholder="Search by name or specialization..."
+              placeholder="Search by name or "
               // className="w-full p-2 border rounded mb-4"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              value={searchText.name}
+              onChange={(e) => updateSearchField('name',e.target.value)}
             />
           </CCol>
 
@@ -196,6 +207,7 @@ export default function CounsellorList() {
         <p></p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredCounsellors.map((counsellor) => (
+            <>
             <CCard
               key={counsellor.id}
               
@@ -238,6 +250,8 @@ export default function CounsellorList() {
                   
               </CCardBody>
             </CCard>
+             <p></p>
+             </>
           ))}
         </div>
 
