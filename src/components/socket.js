@@ -3,10 +3,11 @@ import config from '../api/config';
 
  
 
-const socket = io(config.messagingServiceBaseUrl, {
+const socket = io(config.webSocketUrl, {
+  transports: ['websocket'],
   autoConnect: true,
   reconnection: true,
-  reconnectionAttempts: 10,
+  // reconnectionAttempts: 10,
   reconnectionDelay: 1000,
   query: { userId: localStorage.getItem('userId') },
 });
