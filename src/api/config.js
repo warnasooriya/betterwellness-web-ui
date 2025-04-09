@@ -3,7 +3,8 @@ const config = {
     userServiceBaseUrl: 'https://wzu3gxa394.execute-api.ap-southeast-1.amazonaws.com/',
     bookingServiceBaseUrl: 'https://wzu3gxa394.execute-api.ap-southeast-1.amazonaws.com/',
     messagingServiceBaseUrl: 'https://wzu3gxa394.execute-api.ap-southeast-1.amazonaws.com/',
- 
+    webSocketUrl: 'https://wzu3gxa394.execute-api.ap-southeast-1.amazonaws.com/',
+    
     // counsellorServiceBaseUrl: 'http://18.141.8.148:5000',
     // userServiceBaseUrl: 'http://18.141.8.148:5001',
     // bookingServiceBaseUrl: 'http://18.141.8.148:5002',
