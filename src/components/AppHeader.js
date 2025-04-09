@@ -7,7 +7,7 @@ import { setUser, setRole } from '../reducers/userReducer'
 import { useDispatch } from 'react-redux'
 import { fetchUserAttributes ,fetchAuthSession , } from "@aws-amplify/auth";
 import  useAxiosPrivate from "../hooks/useAxiosPrivate";
-import logo from "../assets/logo.webp";
+import logo from "../assets/logo.png";
 import "./AppHeader.css";
 import config from "../api/config";
 import LoadingOverlay from "./LoadingOverlay";
@@ -44,7 +44,7 @@ const AppHeader = () => {
         setCurrentUser(localUser);
         console.log("User role:", role);
         const userName = user?.tokens?.signInDetails?.loginId;
-        const apiUrl = new URL("api/user", config.userServiceBaseUrl).href;
+        const apiUrl = new URL("user/user", config.userServiceBaseUrl).href;
         const response = await axios.post(apiUrl, { role , attributes,userName , specialization , description }
           ,{
             headers: {

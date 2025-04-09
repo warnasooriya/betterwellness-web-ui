@@ -69,7 +69,7 @@ export default function AvailabilitySetup() {
       const title = `Available`;
 
       if (title) {
-        axios.post(`${config.counsellorServiceBaseUrl}/api/availability`, { title, start, end , user: localStorage.getItem('userId') })
+        axios.post(`${config.counsellorServiceBaseUrl}/counsellor/availability`, { title, start, end , user: localStorage.getItem('userId') })
         .then((response) => {
           console.log("Event created:", response.data);
           setEvents(response.data);
@@ -104,7 +104,7 @@ export default function AvailabilitySetup() {
 
   const fetchAvailability = async () => {
     try {
-      const response = await axios.get(`${config.counsellorServiceBaseUrl}/api/availabilityByUser/${localStorage.getItem('userId')}`);
+      const response = await axios.get(`${config.counsellorServiceBaseUrl}/counsellor/availabilityByUser/${localStorage.getItem('userId')}`);
       console.log("Events fetched:", response.data);
       const eventLists = await response.data.map(event => ({
         title: event.booked===true ? event.bookedBy.family_name + " " + event.bookedBy.given_name : event.title,
