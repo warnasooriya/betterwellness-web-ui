@@ -1,8 +1,8 @@
 const config = {
-    counsellorServiceBaseUrl: 'https://pe8iu029s6.execute-api.ap-southeast-1.amazonaws.com/counsellor/',
-    userServiceBaseUrl: 'https://pe8iu029s6.execute-api.ap-southeast-1.amazonaws.com/user/',
-    bookingServiceBaseUrl: 'https://pe8iu029s6.execute-api.ap-southeast-1.amazonaws.com/booking/',
-    messagingServiceBaseUrl: 'https://pe8iu029s6.execute-api.ap-southeast-1.amazonaws.com/messaging',
+    counsellorServiceBaseUrl: 'https://pe8iu029s6.execute-api.ap-southeast-1.amazonaws.com/',
+    userServiceBaseUrl: 'https://pe8iu029s6.execute-api.ap-southeast-1.amazonaws.com/',
+    bookingServiceBaseUrl: 'https://pe8iu029s6.execute-api.ap-southeast-1.amazonaws.com/',
+    messagingServiceBaseUrl: 'https://pe8iu029s6.execute-api.ap-southeast-1.amazonaws.com/',
  
     // counsellorServiceBaseUrl: 'http://18.141.8.148:5000',
     // userServiceBaseUrl: 'http://18.141.8.148:5001',
