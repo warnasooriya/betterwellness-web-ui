@@ -3,7 +3,7 @@ const config = {
     userServiceBaseUrl: 'https://wzu3gxa394.execute-api.ap-southeast-1.amazonaws.com/',
     bookingServiceBaseUrl: 'https://wzu3gxa394.execute-api.ap-southeast-1.amazonaws.com/',
     messagingServiceBaseUrl: 'https://wzu3gxa394.execute-api.ap-southeast-1.amazonaws.com/',
-    webSocketUrl: 'https://k8s-default-betterwe-4524c49168-1672885488.ap-southeast-1.elb.amazonaws.com/',
+    webSocketUrl: 'https://betterwellness.space/',
 
     // counsellorServiceBaseUrl: 'http://18.141.8.148:5000',
     // userServiceBaseUrl: 'http://18.141.8.148:5001',
