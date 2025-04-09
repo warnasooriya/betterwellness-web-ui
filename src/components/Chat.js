@@ -28,7 +28,7 @@ const Chat = () => {
 
   const fetchUsers = async () => {
     try {
-      const { data } = await axios.get(`${config.userServiceBaseUrl}/user/users`);
+      const { data } = await axios.get(`${config.baseUrl}/user/users`);
       setUsers(data);
       setFilteredUsers(data);
     } catch (error) {

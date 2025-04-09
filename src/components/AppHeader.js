@@ -44,7 +44,7 @@ const AppHeader = () => {
         setCurrentUser(localUser);
         console.log("User role:", role);
         const userName = user?.tokens?.signInDetails?.loginId;
-        const apiUrl = new URL("user/user", config.userServiceBaseUrl).href;
+        const apiUrl = new URL("user/user", config.baseUrl).href;
         const response = await axios.post(apiUrl, { role , attributes,userName , specialization , description }
           ,{
             headers: {

@@ -58,7 +58,7 @@ export default function CounsellorList() {
       console.log("Fetching counsellors...");
       const apiUrl = new URL(
         `booking/booking/list`,
-        config.bookingServiceBaseUrl
+        config.baseUrl
       ).href;
       const response = await axios.get(apiUrl,{
         headers: {
@@ -82,7 +82,7 @@ export default function CounsellorList() {
         console.log("Fetching specializations...");
         const apiUrl = new URL(
           `counsellor/specialization`,
-          config.counsellorServiceBaseUrl
+          config.baseUrl
         ).href;
         const response = await axios.get(apiUrl); // API call
         const options = response.data.map((item) => {
@@ -146,7 +146,7 @@ export default function CounsellorList() {
                 console.log("Booking slot:", slot);
                 const apiUrl = new URL(
                     `booking/booking`,
-                    config.bookingServiceBaseUrl
+                    config.baseUrl
                 ).href;
                 const response = await axios.post(apiUrl, {...slot , user: localStorage.getItem('userId')}); // API call
                 console.log("Booking response:", response.data);

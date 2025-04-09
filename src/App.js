@@ -33,7 +33,7 @@ function App() {
   const fetchSpecialization = async () => {
     try {
       setLoading(true);
-      const apiUrl = new URL("counsellor/getAllSpecialization", config.counsellorServiceBaseUrl).href;
+      const apiUrl = new URL("counsellor/getAllSpecialization", config.baseUrl).href;
       const response = await axios.get(apiUrl);
       const options = response.data.map((item) => {
          return { value: item._id, label: item.Area };

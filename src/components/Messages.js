@@ -45,7 +45,7 @@ const Messages = () => {
   const fetchUsers = async () => {
     try {
       const { data } = await axios.get(
-        `${config.userServiceBaseUrl}/user/users`
+        `${config.baseUrl}/user/users`
       );
       setUsers(data);
       setFilteredUsers(data);
@@ -94,7 +94,7 @@ const Messages = () => {
   const loadMesageHistory = async (userId) => {
     try {
       const { data } = await axios.get(
-        `${config.messagingServiceBaseUrl}/messaging/messages/${localStorage.getItem("userId")}/${userId}`
+        `${config.baseUrl}/messaging/messages/${localStorage.getItem("userId")}/${userId}`
       );
       console.log("Message history:", data);
       dispatch(setMessagesRed(data));

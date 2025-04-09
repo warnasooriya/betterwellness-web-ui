@@ -1,8 +1,5 @@
 const config = {
-    counsellorServiceBaseUrl: 'https://z7gat9vwa8.execute-api.ap-southeast-1.amazonaws.com/',
-    userServiceBaseUrl: 'https://z7gat9vwa8.execute-api.ap-southeast-1.amazonaws.com/',
-    bookingServiceBaseUrl: 'https://z7gat9vwa8.execute-api.ap-southeast-1.amazonaws.com/',
-    messagingServiceBaseUrl: 'https://z7gat9vwa8.execute-api.ap-southeast-1.amazonaws.com/',
+    baseUrl: 'https://z7gat9vwa8.execute-api.ap-southeast-1.amazonaws.com/',
     webSocketUrl: 'https://betterwellness.space/',
 
     // counsellorServiceBaseUrl: 'http://18.141.8.148:5000',
