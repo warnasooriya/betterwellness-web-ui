@@ -1,6 +1,6 @@
 const config = {
     baseUrl: 'https://fu7hllt9ck.execute-api.ap-southeast-1.amazonaws.com/',
-    webSocketUrl: 'https://betterwellness.space/',
+    webSocketUrl: 'https://jd23vbje57.execute-api.ap-southeast-1.amazonaws.com/production/',
 
     // counsellorServiceBaseUrl: 'http://18.141.8.148:5000',
     // userServiceBaseUrl: 'http://18.141.8.148:5001',
