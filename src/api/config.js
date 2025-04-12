@@ -1,5 +1,5 @@
 const config = {
-    baseUrl: 'https://fu7hllt9ck.execute-api.ap-southeast-1.amazonaws.com/',
+    baseUrl: 'https://bdoazp5j9b.execute-api.ap-southeast-1.amazonaws.com/',
     webSocketUrl: 'https://betterwellness.space/',
 
     // baseUrl: 'http://localhost:5000/',
