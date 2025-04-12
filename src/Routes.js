@@ -7,6 +7,7 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import Booking from "./components/Booking";
 import BookingInquiries from "./components/BookingInquiries";
 import Messages from "./components/Messages";
+import Profile from "./components/Profile";
  
 
 
@@ -36,6 +37,11 @@ const AppRoutes = () => {
             <Route element={<ProtectedRoute component={Messages} allowedRoles={['Counsellor','Customer']} />}>
               <Route path="/messages" name="Messages" element={<Messages />} />
             </Route>
+
+            <Route element={<ProtectedRoute component={Profile} allowedRoles={['Counsellor','Customer']} />}>
+              <Route path="/profile" name="Profile" element={<Profile />} />
+            </Route>
+
 
         
     
