@@ -16,6 +16,7 @@ const localizer = momentLocalizer(moment);
 export default function AvailabilitySetup() {
   
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isOnselectEventModalOpen,setIsOnselectEventModalOpen] = useState(false);
   const [selectedRange, setSelectedRange] = useState({ start: null, end: null });
   const [view, setView] = useState("month");
   const [loading, setLoading] = useState(false);
@@ -96,6 +97,11 @@ export default function AvailabilitySetup() {
     setIsModalOpen(false); // Close the modal after saving
   }, [selectedRange]);
 
+
+  const handleOnSelectEvent = (event) => {
+    
+  };
+
   // Function to handle view change in the calendar
   const handleViewChange = useCallback((view) => {
     console.log("View changed to:", view);
@@ -150,7 +156,7 @@ export default function AvailabilitySetup() {
         view={view}
         onSelectSlot={handleSelectSlot} // Open the modal when selecting a slot
         onView={handleViewChange} // Handle view change
-        onSelectEvent={(event) => console.log("Selected event:", event)} // Handle event selection
+        onSelectEvent={(event) => handleOnSelectEvent(event)} // Handle event selection
         style={{ height: 600 }} // Example height for the calendar
         views={["month", "week", "day", "agenda"]}
         min={moment().startOf("day").toDate()} // Minimum date selection (based on selected range)
@@ -209,6 +215,23 @@ export default function AvailabilitySetup() {
         <CModalFooter>
           <CButton color="primary" onClick={handleSave}>Save Availability</CButton>
           <CButton color="secondary" onClick={() => setIsModalOpen(false)}>Cancel</CButton>
+        </CModalFooter>
+      </CModal>
+
+      <CModal
+        visible={isOnselectEventModalOpen}
+        onClose={() => setIsOnselectEventModalOpen(false)} // Close the modal when clicked on overlay or cancel
+        size="sm"
+      >
+        <CModalHeader>
+          <h5>Event Action</h5>
+        </CModalHeader>
+        <CModalBody>
+        
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="primary" onClick={handleSave}>Complete Booking</CButton>
+          <CButton color="danger" onClick={() => setIsModalOpen(false)}>Cancel Booking </CButton>
         </CModalFooter>
       </CModal>
     </div>
