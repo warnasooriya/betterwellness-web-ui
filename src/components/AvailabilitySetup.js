@@ -99,7 +99,7 @@ export default function AvailabilitySetup() {
 
 
   const handleOnSelectEvent = (event) => {
-    
+    setIsOnselectEventModalOpen(true);
   };
 
   // Function to handle view change in the calendar
