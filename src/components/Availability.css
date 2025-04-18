@@ -3,3 +3,15 @@
   color: white !important;
   
 }
+
+.custom-complete-class {
+  background-color: #898f8c !important;
+  color: white !important;
+  
+}
+
+.custom-cancel-class {
+  background-color: #d38a8a !important;
+  color: white !important;
+  
+}

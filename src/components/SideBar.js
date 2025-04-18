@@ -17,6 +17,9 @@ const Sidebar = () => {
             <li>
               <Link to="/booking">Booking</Link>
             </li>
+            <li>
+              <Link to="/booking-history">Calendar</Link>
+            </li>
            
           </>
         )}

@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { CModal, CModalHeader, CModalBody, CModalFooter, CButton, CRow, CCol } from "@coreui/react"; // Corrected imports
+import { CModal, CModalHeader, CModalBody, CModalFooter, CButton, CRow, CCol, CFormLabel, CFormInput } from "@coreui/react"; // Corrected imports
 import { useDispatch, useSelector } from 'react-redux'
 import './Availability.css'
 import { setAvailability, setAllAvailabilities } from '../reducers/availabilityReducer'
@@ -11,10 +11,11 @@ import config from "../api/config";
 import LoadingOverlay from "./LoadingOverlay";
 import Swal from "sweetalert2";
  
+ 
 
 const localizer = momentLocalizer(moment);
 
-export default function AvailabilitySetup() {
+export default function BookingHistory() {
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOnselectEventModalOpen,setIsOnselectEventModalOpen] = useState(false);
@@ -93,12 +94,10 @@ export default function AvailabilitySetup() {
 
 
   const handleOnSelectEvent = (event) => {
-    debugger
-    if(event.status==="Complete" || event.status==="Cancel"){
-      return
-    }
+    
     setIsOnselectEventModalOpen(true);
     setSelectedEvent(event);
+    console.log(event);
     
   };
 
@@ -109,31 +108,24 @@ export default function AvailabilitySetup() {
   }, []);
 
   const getTitle = (event) => {
-    if(event.booked===true && event.bookedBy){
-      return event.bookedBy.family_name + " " + event.bookedBy.given_name  
-    }
-    if(event.status==='Cancel'){
-      return "Cancelled"
-    }
-    if(event.status==='Complete'){
-      return "Completed"
-    }
+    return event.counselor.family_name + " " + event.counselor.given_name  + " : " + event.specialization.Area + " - " + event.status;
     
-    return `${event.title}`;
   };
 
   const fetchAvailability = async () => {
     try {
-      const response = await axios.get(`${config.baseUrl}/counsellor/availabilityByUser/${localStorage.getItem('userId')}`);
+      const response = await axios.get(`${config.baseUrl}/booking/getBookings/${localStorage.getItem('userId')}`);
       console.log("Events fetched:", response.data);
       const eventLists = await response.data.map(event => ({
         title: getTitle(event),
-        start:  event.start, // Ensure start is a Date object
-        end: event.end,     // Ensure end is a Date object
-        booked: event.booked,
+        start:  event.availability.start, // Ensure start is a Date object
+        end: event.availability.end,     // Ensure end is a Date object
         id: event._id,
-        bookedBy: event.bookedBy,
-        status: event.status
+        counselor: event.counselor.family_name + " " + event.counselor.given_name,
+        specality: event.specialization.Area,
+        status: event.status,
+        description: event.counselor.description,
+        email: event.counselor.email
       }));
  
       setAllEvents(eventLists);
@@ -144,43 +136,6 @@ export default function AvailabilitySetup() {
   };
 
   
-  
-      const handleBookingStatus = async (status) => {
-        
-          Swal.fire({
-              title: "Are you sure?",
-              text: `Do you want to ${status} this slot?`,
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Yes, " + status + " it!",
-            }).then(async (result) => {
-              if (result.isConfirmed) {
-                // Perform the delete action
-                try {
-                  setLoading(true);
-                  const apiUrl = new URL(
-                      `booking/update-booking/${selectedEvent.id}`,
-                      config.baseUrl
-                  ).href;
-                  const response = await axios.put(apiUrl, {...selectedEvent , status , user: localStorage.getItem('userId')}); // API call
-                  console.log("Booking response:", response.data);
-                  
-                  Swal.fire(`${status}!`, `Your slot has been ${status}.`, "success");
-                  setLoading(false);
-                  setIsOnselectEventModalOpen(false)
-                  fetchAvailability();  
-              } catch (error) {
-                  setLoading(false);
-                  console.error(`Error ${status} slot:`, error);
-              }
-              }
-            });
-  
-          
-      };
-
   useEffect(() => {
     fetchAvailability();  
   }, []); 
@@ -211,7 +166,7 @@ export default function AvailabilitySetup() {
 
   return (
     <div>
-      <h2>📅 Availability Scheduler</h2>
+      <h2>📅 Booking Calendar</h2>
       <LoadingOverlay isLoading={loading} />
       {/* Calendar Component */}
       <Calendar
@@ -252,64 +207,65 @@ export default function AvailabilitySetup() {
       />
       
 
-      {/* CoreUI Modal for Setting Availability */}
       <CModal
-        visible={isModalOpen}
-        onClose={() => setIsModalOpen(false)} // Close the modal when clicked on overlay or cancel
-        size="lg"
-      >
-        <CModalHeader>
-          <h5>Set Availability</h5>
-        </CModalHeader>
-        <CModalBody>
-          <div>
-            <label>
-              Start Date and Time:
-              <input
-                type="datetime-local"
-                value={moment(selectedRange.start).format("YYYY-MM-DDTHH:mm")}
-                onChange={(e) => handleDateRangeChange(new Date(e.target.value), selectedRange.end)}
-                className="form-control" // Bootstrap class for styling
-              />
-            </label>
-            <br />
-            <label>
-              End Date and Time:
-              <input
-                type="datetime-local"
-                value={moment(selectedRange.end).format("YYYY-MM-DDTHH:mm")}
-                onChange={(e) => handleDateRangeChange(selectedRange.start, new Date(e.target.value))}
-                className="form-control" // Bootstrap class for styling
-              />
-            </label>
-          </div>
-        </CModalBody>
-        <CModalFooter>
-          <CButton color="primary" onClick={handleSave}>Save Availability</CButton>
-          <CButton color="secondary" onClick={() => setIsModalOpen(false)}>Cancel</CButton>
-        </CModalFooter>
-      </CModal>
+              visible={isOnselectEventModalOpen}
+              onClose={() => setIsOnselectEventModalOpen(false)} // Close the modal when clicked on overlay or cancel
+              size="lg"
+            >
+              <CModalHeader>
+                <h5>Session Details</h5>
+              </CModalHeader>
+              <CModalBody>
+              <CRow>
+                  <CCol md={6} >
+                  <CFormLabel>Session Date: </CFormLabel>
+                    <CFormInput
+                                    type="datetime-local"
+                                    value={moment(selectedEvent.start).format("YYYY-MM-DD HH:mm")}
+                                    onChange={(e) => handleDateRangeChange(new Date(e.target.value), selectedRange.end)}
+                                    className="form-control" disabled // Bootstrap class for styling
+                                  />
+                  </CCol>
+                  <CCol md={6} >
 
-      <CModal
-        visible={isOnselectEventModalOpen}
-        onClose={() => setIsOnselectEventModalOpen(false)} // Close the modal when clicked on overlay or cancel
-        size="md"
-      >
-        <CModalHeader>
-          <h5>Session Action</h5>
-        </CModalHeader>
-        <CModalBody>
-          <CRow>
-            <CCol md={6}>
-        <CButton color="primary" className="form-control" onClick={()=>handleBookingStatus('Complete')}>Complete Session</CButton>
-              </CCol>
-              <CCol md={6}>
-          <CButton color="danger" className="form-control" onClick={() => handleBookingStatus('Cancel')}>Cancel Session </CButton>
-              </CCol>
-          </CRow>
-        </CModalBody>
-        
-      </CModal>
+                    <CFormLabel>Session Status:  </CFormLabel>
+                    <CFormInput type="text" disabled value={selectedEvent.status} />
+ 
+                  </CCol>
+                  </CRow>
+                  <p></p>
+                 <CRow>
+                  <CCol md={6} >
+                    <CFormLabel>Counselor:  </CFormLabel>
+                    <CFormInput type="text" disabled value={selectedEvent.counselor} />
+                  </CCol>
+                  <CCol md={6} >
+
+                    <CFormLabel>Specialization:  </CFormLabel>
+                    <CFormInput type="text" disabled value={selectedEvent.specality} />
+                  </CCol>
+                  </CRow>
+                  <p></p>
+                  
+                  <CRow>
+                  <CCol md={12} >
+                    <CFormLabel>Counselor Description:  </CFormLabel>
+                    <CFormInput type="text" disabled value={selectedEvent.description} />
+                  </CCol>
+                  </CRow>
+                  <CRow>
+                  <CCol md={6} >
+                    <CFormLabel>Counselor Email:  </CFormLabel>
+                    <CFormInput type="text" disabled value={selectedEvent.email} />
+                  </CCol>
+                   
+                  </CRow>
+                  <p></p>
+              </CModalBody>
+              
+            </CModal>
+
+       
     </div>
   );
 }
