@@ -187,10 +187,10 @@ function Profile() {
         <CCol md={6}>
         <div className="form-group">
           <label>Role</label>
-          <select
+          <select 
             name="custom:role"
             value={formValues['custom:role']}
-            onChange={handleChange}
+            disabled
             className="form-control-custom"
             required
           >
